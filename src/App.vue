@@ -1,7 +1,8 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">Dance Editor</router-link> |
+    <router-link to="/dance-step-editor">Dance Step Editor</router-link>
+    <router-link to="/stage-editor">Stage Editor</router-link>
   </div>
   <router-view/>
 </template>
