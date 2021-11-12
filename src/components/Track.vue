@@ -5,7 +5,7 @@
         v-for="(beat, i) in totalBeats"
         :key="i"
         :beatNumber="i"
-        danceStepName="d"
+        :danceStepName="dStepName"
         :danceStepLength="beatCellLengths[i]"
         :isFree="isFree(i)"
         v-on:add-step="merge"
@@ -19,13 +19,13 @@ import BeatCell from '@/components/BeatCell.vue'
 
 export default {
   name: 'Track',
-  props: ['name', 'totalBeats'],
+  props: ['name', 'totalBeats', 'dStepName', 'dStepLength'],
   components: { BeatCell },
   methods: {
     merge (beatIndex) {
-      console.log('merge at ' + beatIndex)
-      // dummy length for now
-      this.stepLength = 4
+      // console.log('merge at ' + beatIndex)
+      // dummy length for now, move the set steplength step to somewhere outside where it happens before any function, not just merge
+      this.stepLength = this.dStepLength
 
       this.beatCellLengths[beatIndex] = this.stepLength
       // set all cell lengths to 0 for the duration of the step; these cells will all be merged into the first
@@ -33,10 +33,10 @@ export default {
       for (let i = 1; i < this.stepLength; i++) {
         this.beatCellLengths[beatIndex + i] = 0
       }
-      this.debugCells()
+      // this.debugCells()
     },
     unmerge (beatIndex) {
-      console.log('unmerge at ' + beatIndex)
+      // console.log('unmerge at ' + beatIndex)
       this.stepLength = 1
 
       this.beatCellLengths[beatIndex] = this.stepLength
@@ -44,7 +44,7 @@ export default {
       for (let i = beatIndex + 1; this.beatCellLengths[i] === 0; i++) {
         this.beatCellLengths[i] = 1
       }
-      this.debugCells()
+      // this.debugCells()
     },
     initBeats () {
       var beatsArray = new Array(this.totalBeats)
@@ -55,7 +55,7 @@ export default {
       return beatsArray
     },
     isFree (beatIndex) {
-      this.debugCells()
+      this.stepLength = this.dStepLength
       for (let i = 0; i < this.stepLength; i++) {
         // TODO: Change check from against 1 to an actual flag for being free, as there can be valid dance steps that are 1 beat long
         if (this.beatCellLengths[beatIndex + i] !== 1) return false

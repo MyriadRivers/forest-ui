@@ -14,6 +14,8 @@
             :key="i"
             :name="trackNames[i]"
             :totalBeats="totalBeats"
+            :dStepName = danceStepName
+            :dStepLength = danceStepLength
           />
         </tbody>
       </table>
@@ -29,7 +31,10 @@ export default {
   props: {
     totalTracks: Number,
     trackNames: Array,
-    totalBeats: Number
+    totalBeats: Number,
+    // Placeholder attributes passed down to track and then to beat cell, clean this up later
+    danceStepName: String,
+    danceStepLength: Number
   },
   components: {
     Track
