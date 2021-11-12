@@ -1,5 +1,5 @@
 <template>
-    <td class="beat-cell" :colspan="danceStepLength" @click="addStep" @contextmenu.prevent="removeStep">
+    <td class="beat-cell" v-if="danceStepLength != 0" :colspan="danceStepLength" @click="addStep" @contextmenu.prevent="removeStep">
         {{ danceStep }}
     </td>
 </template>
