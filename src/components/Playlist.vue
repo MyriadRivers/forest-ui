@@ -4,9 +4,9 @@
       <table>
         <thead>
           <tr>
-                <th scope="row"> Track </th>
-                <td v-for="(beat, i) in totalBeats" :key="i"> {{ i + 1 }} </td>
-            </tr>
+              <th scope="row"> Track </th>
+              <td v-for="(beat, i) in totalBeats" :key="i"> {{ i + 1 }} </td>
+          </tr>
         </thead>
         <tbody>
           <Track
@@ -56,5 +56,9 @@ a {
 .playlist-holder {
   max-width: 100vw;
   overflow-x: scroll;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
 }
 </style>

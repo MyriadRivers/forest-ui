@@ -1,19 +1,38 @@
 <template>
-    <div class="track">
-        <table>
-            <tr>
-                <th scope="row"> {{ name }} </th>
-                <td v-for="(beat, i) in totalBeats" :key="i"></td>
-            </tr>
-        </table>
-    </div>
+  <tr class="track">
+      <th scope="row"> {{ name }} </th>
+      <BeatCell
+        v-for="(beat, i) in totalBeats" :key="i"
+        danceStepName="Dummy Step"
+        :danceStepLength="beatLength"
+        v-on:add-step="merge"
+        v-on:remove-step="unmerge"
+      />
+  </tr>
 </template>
 
 <script>
+import BeatCell from '@/components/BeatCell.vue'
 
 export default {
+  components: { BeatCell },
   name: 'Track',
-  props: ['name', 'totalBeats']
+  props: ['name', 'totalBeats'],
+  methods: {
+    merge (stepLength) {
+      console.log('merge!')
+      this.beatLength = 4
+    },
+    unmerge (stepLength) {
+      console.log('unmerge!')
+      this.beatLength = 1
+    }
+  },
+  data () {
+    return {
+      beatSteps: new Array(this.totalBeats)
+    }
+  }
 }
 </script>
 
@@ -21,13 +40,5 @@ export default {
   table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
-    table-layout: fixed;
-    width: 100vw;
-  }
-  th {
-      width: 100px;
-  }
-  td {
-      width: 50px;
   }
 </style>
