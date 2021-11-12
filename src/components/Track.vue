@@ -7,6 +7,7 @@
         :beatNumber="i"
         danceStepName="d"
         :danceStepLength="beatCellLengths[i]"
+        :isFree="isFree(i)"
         v-on:add-step="merge"
         v-on:remove-step="unmerge"
       />
@@ -24,11 +25,11 @@ export default {
     merge (beatIndex) {
       console.log('merge at ' + beatIndex)
       // dummy length for now
-      // stepLength might be useless, if we can do everything with beatLength all in this component
       this.stepLength = 4
 
       this.beatCellLengths[beatIndex] = this.stepLength
       // set all cell lengths to 0 for the duration of the step; these cells will all be merged into the first
+
       for (let i = 1; i < this.stepLength; i++) {
         this.beatCellLengths[beatIndex + i] = 0
       }
@@ -53,6 +54,14 @@ export default {
       }
       return beatsArray
     },
+    isFree (beatIndex) {
+      this.debugCells()
+      for (let i = 0; i < this.stepLength; i++) {
+        // TODO: Change check from against 1 to an actual flag for being free, as there can be valid dance steps that are 1 beat long
+        if (this.beatCellLengths[beatIndex + i] !== 1) return false
+      }
+      return true
+    },
     debugCells () {
       var cellLengths = ''
       for (let i = 0; i < this.totalBeats; i++) {
@@ -64,8 +73,7 @@ export default {
   data () {
     return {
       beatCellLengths: this.initBeats(),
-      stepLength: 0,
-      beatLength: 0
+      stepLength: 0
     }
   }
 }

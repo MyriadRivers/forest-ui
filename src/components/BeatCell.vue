@@ -7,22 +7,21 @@
 <script>
 export default {
   name: 'BeatCell',
-  props: ['beatNumber', 'danceStepName', 'danceStepLength'],
+  props: ['beatNumber', 'danceStepName', 'danceStepLength', 'isFree'],
   methods: {
     addStep () {
-      console.log('column span, supposedly ' + this.danceStepLength)
-      if (this.isEmpty) {
+      if (this.isEmpty && this.isFree) {
         this.danceStep = this.danceStepName
         this.$emit('add-step', this.beat, this.danceStepLength)
+        this.isEmpty = false
       }
-      this.isEmpty = false
     },
     removeStep () {
       if (!this.isEmpty) {
         this.danceStep = ''
         this.$emit('remove-step', this.beat, this.danceStepLength)
+        this.isEmpty = true
       }
-      this.isEmpty = true
     }
   },
   data () {
