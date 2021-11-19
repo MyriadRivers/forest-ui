@@ -1,6 +1,6 @@
 <template>
   <div class="playlist">
-    <div class="playlist-holder">
+    <div class="scroll-box">
       <table>
         <thead>
           <tr>
@@ -16,6 +16,7 @@
             :totalBeats="totalBeats"
             :dStepName = danceStepName
             :dStepLength = danceStepLength
+            v-on:update-track-contents="updateTracks"
           />
         </tbody>
       </table>
@@ -28,6 +29,7 @@ import Track from '@/components/Track.vue'
 
 export default {
   name: 'Playlist',
+  // Probably don't need both the number of tracks and the names, since you can get number from names
   props: {
     totalTracks: Number,
     trackNames: Array,
@@ -38,6 +40,27 @@ export default {
   },
   components: {
     Track
+  },
+  methods: {
+    updateTracks (trackName, contents) {
+      this.trackContents[trackName] = contents
+      this.$emit('update-playlist', this.trackContents)
+    },
+    initializeTracks () {
+      var tracksArray = {}
+      for (let i = 0; i < this.trackNames.length; i++) {
+        tracksArray[this.trackNames[i]] = new Array(this.totalBeats)
+        for (let j = 0; j < this.totalBeats; j++) {
+          tracksArray[this.trackNames[i]][j] = 1
+        }
+      }
+      return tracksArray
+    }
+  },
+  data () {
+    return {
+      trackContents: this.initializeTracks()
+    }
   }
 }
 </script>
@@ -57,10 +80,6 @@ li {
 }
 a {
   color: #42b983;
-}
-.playlist-holder {
-  max-width: 100vw;
-  overflow-x: scroll;
 }
 table, th, td {
   border: 1px solid black;
