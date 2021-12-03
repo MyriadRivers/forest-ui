@@ -24,7 +24,6 @@ export default {
   methods: {
     merge (beatIndex) {
       // console.log('merge at ' + beatIndex)
-      // dummy length for now, move the set steplength step to somewhere outside where it happens before any function, not just merge
       this.stepLength = this.dStepLength
 
       this.beatCellLengths[beatIndex] = this.stepLength
@@ -90,15 +89,22 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   table, th, td {
-    border: 1px solid black;
+    border: 0px solid #272526;
     border-collapse: collapse;
+    height: 35px;
   }
   th {
+    background: #28966f;
+    color: white;
+
+    font-weight: normal;
+    text-transform: uppercase;
     min-width: 60px;
   }
   td {
-    min-width: 30px;
+    min-width: 60px;
+    border-right: 1px solid #272526;
   }
 </style>

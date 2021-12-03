@@ -1,11 +1,12 @@
 <template>
-    <td>
-        <input class="dance-step" type="radio" name="steps" :value="name" @change="selectStep">
+    <label>
+      <input type="radio" name="steps" :value="name" :checked="selected">
+      <td :class="`dance-step checked-${selected}`" @click="selectStep">
+        {{ name }}
         <br>
-        <label>{{ name }}</label>
-        <br>
-        <label>{{ beatLength }}</label>
-    </td>
+        {{ beatLength }}
+      </td>
+    </label>
 </template>
 <script>
 export default {
@@ -13,13 +14,35 @@ export default {
   props: ['name', 'beatLength'],
   methods: {
     selectStep () {
+      this.selected = true
       this.$emit('select-step', this.name, this.beatLength)
+    }
+  },
+  data () {
+    return {
+      selected: false
     }
   }
 }
 </script>
 <style scoped>
+td {
+  border: 1px solid white;
+;
+}
 .dance-step {
-    min-width: 200px;
+    padding: 10px;
+}
+[type=radio]:checked + .dance-step{
+  background: white;
+}
+[type=radio] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+[type=radio] + .dance-step {
+  cursor: pointer;
 }
 </style>

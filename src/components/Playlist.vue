@@ -4,12 +4,15 @@
       <table>
         <thead>
           <tr>
-              <th scope="row"> Track </th>
+              <th scope="row"> </th>
               <td v-for="(beat, i) in totalBeats" :key="i"> {{ i + 1 }} </td>
           </tr>
         </thead>
+      </table>
+      <table>
         <tbody>
           <Track
+            class="track"
             v-for="(track, i) in totalTracks"
             :key="i"
             :name="trackNames[i]"
@@ -81,8 +84,25 @@ li {
 a {
   color: #42b983;
 }
+.track {
+  &:nth-of-type(odd) {
+    background: #f2f2f2;
+  }
+  &:nth-of-type(even) {
+    background: white;
+  }
+}
 table, th, td {
-  border: 1px solid black;
   border-collapse: collapse;
+}
+th {
+  text-transform: uppercase;
+  font-weight: normal;
+  height: 30px;
+  min-width: 30px;
+}
+td {
+  min-width: 60px;
+  padding-right: 1px;
 }
 </style>

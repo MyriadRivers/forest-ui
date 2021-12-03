@@ -1,5 +1,5 @@
 <template>
-    <td class="beat-cell" v-if="danceStepLength != 0" :colspan="danceStepLength" @click="addStep" @contextmenu.prevent="removeStep">
+    <td :class="`beatcell empty-${ isEmpty }`" v-if="danceStepLength != 0" :colspan="danceStepLength" @click="addStep" @contextmenu.prevent="removeStep">
         {{ danceStep }}
     </td>
 </template>
@@ -33,3 +33,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+/* Sets beat cells to a color if they are currently populated
+   TODO: Make the color distinct for different dance steps */
+.empty-false {
+  background: #f5bfe4;
+}
+</style>

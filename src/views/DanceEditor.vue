@@ -1,6 +1,19 @@
 <template>
-  <div class="Dance Editor">
-    <h1>{{ songName }}</h1>
+  <div id="dance-editor">
+    <div id="song-holder">
+      <div id="song-info-bar">
+      <div id="song-name-holder">
+        <h1 id="song">Song</h1><h1 id="song-name">{{songName}}</h1>
+      </div>
+      <div id="song-parameters">
+        <label>Song Name:</label>&nbsp;
+        <input id="song-name-input" v-model.number="inputName">&nbsp;
+        <label>Song Length:</label>&nbsp;
+        <input id="song-length-input" v-model.number="inputLength">&nbsp;
+        <button @click="updateSong">SAVE</button>&nbsp;
+        <button @click="outputSong">OUTPUT</button>
+      </div>
+    </div>
     <Playlist
       :totalTracks="12"
       :trackNames="['Arm 1', 'Arm 2', 'Arm 3', 'Arm 4', 'Arm 5', 'Arm 6', 'Arm 7', 'Arm 8', 'Arm 9', 'Arm 10', 'Arm 11', 'Arm 12']"
@@ -9,37 +22,21 @@
       :danceStepLength = stepLength
       v-on:update-playlist="updatePlaylist"
     />
-    <h1>Dance Steps:</h1>
-    <div class="scroll-box">
-      <table>
+    </div>
+    <div id="dance-step-holder">
+      <h1>Dance Steps</h1>
+      <table id="dance-step-table">
         <tr>
-          <DanceStep v-for="(step, i) in stepsList" :key="i"
-            :name="stepsList[i].name"
-            :beatLength="stepsList[i].length"
-            v-on:select-step="setActiveStep"
-          />
+          <td v-for="(step, i) in stepsList" :key="i">
+            <DanceStep
+              :name="stepsList[i].name"
+              :beatLength="stepsList[i].length"
+              v-on:select-step="setActiveStep"
+            />
+          </td>
         </tr>
       </table>
     </div>
-    <!-- Placeholder inputs just for demo purposes -->
-    <!-- <br>
-    <label>Name:</label>
-    <input v-model="stepName">
-    <br>
-    <label>Length:</label>
-    <input v-model.number="stepLength"> -->
-    <br>
-    <label>Song Name:</label>
-    <input v-model.number="inputName">
-    <br>
-    <label>Song Length:</label>
-    <input v-model.number="inputLength">
-    <br>
-    <button @click="updateSong">submit</button>
-    <br>
-    <!-- Another placeholder to quickly output all the track's contents -->
-    <button @click="outputSong">Output Song</button>
-    <br>
   </div>
 </template>
 
@@ -162,8 +159,77 @@ export default {
 h1 {
   text-align: left;
 }
+#song-holder {
+  padding: 20px;
+  background: white;
+}
+#song-info-bar {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0px;
+}
+#song-name-holder {
+  display: block;
+}
+#song {
+  display: inline-block;
+  margin-right: 20px;
+}
+#song-name {
+  display: inline-block;
+  color: #f5bfe4;
+}
+#song-name-input {
+  width: 240px;
+}
+#song-length-input {
+  width: 60px;
+}
 .scroll-box {
   max-width: 100vw;
   overflow-x: scroll;
+}
+#dance-step-holder {
+  padding: 20px;
+}
+#dance-step-table {
+  display: block;
+  text-align: left;
+  margin-top: 15px;
+}
+#dance-step-table td {
+  display: inline-block;
+}
+#song-parameters {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: 0;
+  font-size: 25px;
+}
+
+#song-parameters button {
+  border: none;
+  background: #42b983;
+  color: white;
+  font-family: inherit;
+  font-size: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+#song-parameters button:active {
+  background: #f5bfe4;
+}
+
+#song-parameters input {
+  font-family: inherit;
+  font-size: 20px;
+  border: none;
+  background: #f2f2f2;
+  padding: 10px;
+}
+
+#song-parameters input:focus {
+  outline: none;
 }
 </style>
