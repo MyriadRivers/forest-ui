@@ -1,5 +1,7 @@
 # forest-ui
 
+![forest ui screenshot](src\assets\forest_ui_screenshot.png)
+
 ## Project setup
 ```
 npm install
