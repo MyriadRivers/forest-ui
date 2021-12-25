@@ -1,6 +1,6 @@
 # forest-ui
 
-![forest ui screenshot](src\assets\forest_ui_screenshot.png?raw=true "Forest UI Screenshot")
+![forest ui screenshot](/assets/forest_ui_screenshot.png?raw=true "Forest UI Screenshot")
 
 ## Project setup
 ```
